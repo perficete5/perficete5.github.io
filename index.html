@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="et">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Perfice te OÜ — Beauty · Apps · Systems</title>
+  <style>
+    :root{
+      --accent:#ff6fa3;
+      --dark:#0f1724;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --container:1100px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#071028 0%, #0f2136 100%);color:#e6eef8;line-height:1.45}
+    .wrap{max-width:var(--container);margin:0 auto;padding:28px}
+    nav.topnav{display:flex;gap:14px;align-items:center;margin-bottom:18px;flex-wrap:wrap}
+    .logo{font-weight:700;font-size:28px;color:var(--card);letter-spacing:0.4px}
+    nav.topnav a{color:rgba(230,238,248,0.95);text-decoration:none;padding:8px;border-radius:8px}
+    nav.topnav a:hover{background:rgba(255,255,255,0.03)}
+    header.hero{
+      position:relative;
+      border-radius:14px;padding:40px;display:flex;gap:28px;align-items:center;flex-wrap:wrap;
+      background:linear-gradient(180deg, rgba(6,12,22,0.55), rgba(6,12,22,0.55)), url("https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1600&auto=format&fit=crop&crop=entropy") center/cover no-repeat;
+      overflow:hidden;
+    }
+    /* subtle overlay lines for better contrast */
+    header.hero::before{
+      content:"";position:absolute;inset:0;background:linear-gradient(90deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.05) 40%, rgba(0,0,0,0.25) 100%);pointer-events:none;
+    }
+    .hero-left{flex:1;min-width:260px;position:relative;z-index:2}
+    .hero-right{flex:1;min-width:260px;position:relative;z-index:2}
+    .tag{color:#dbeeff;margin-top:8px}
+    .hero-cta{margin-top:18px}
+    .btn{display:inline-block;padding:12px 18px;border-radius:10px;background:var(--accent);color:#081027;font-weight:600;text-decoration:none}
+    main{margin-top:24px;display:grid;grid-template-columns:repeat(12,1fr);gap:20px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));padding:20px;border-radius:12px}
+    h2.section-title{color:#eaf6ff;margin:0 0 10px 0}
+    p.lead{color:var(--muted);margin:0 0 14px 0}
+    /* Layout blocks */
+    .col-8{grid-column:span 8}
+    .col-4{grid-column:span 4}
+    .col-6{grid-column:span 6}
+    .col-12{grid-column:span 12}
+    ul.services{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    li.service{background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;display:flex;gap:12px;align-items:flex-start}
+    .ic{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#ffb3d1);display:flex;align-items:center;justify-content:center;font-weight:700;color:#081027}
+    .advantages{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+    .adv{background:rgba(255,255,255,0.02);padding:14px;border-radius:10px}
+    .process{display:flex;flex-direction:column;gap:12px}
+    .step{display:flex;gap:12px;align-items:flex-start}
+    .step .num{min-width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;font-weight:700}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .contacts{display:flex;flex-direction:column;gap:12px}
+    .faq{margin-top:12px}
+    .faq-item{background:rgba(255,255,255,0.02);padding:12px;border-radius:8px;margin-bottom:8px}
+    form.contact-form{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit}
+    textarea{grid-column:1/ -1;min-height:110px;resize:vertical}
+    .form-foot{display:flex;gap:10px;align-items:center;justify-content:space-between}
+    .error{color:#ffccd5;font-size:13px}
+    .success{color:#b6ffd9;font-size:14px}
+    footer{margin-top:28px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.03);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+    img.responsive{width:100%;height:220px;object-fit:cover;border-radius:10px}
+    .hero-heading{
+      font-weight:800;font-size:26px;color:#fff;padding:8px 12px;border-radius:8px;background:linear-gradient(90deg, rgba(0,0,0,0.25), rgba(0,0,0,0.15));display:inline-block;
+      text-shadow:0 6px 18px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.02);
+    }
+    .hero-sub{
+      display:inline-block;margin-top:8px;color:#eaf6ff;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:6px 10px;border-radius:8px;
+      box-shadow:0 3px 18px rgba(0,0,0,0.45);
+    }
+    /* Responsive */
+    @media (max-width:1000px){
+      .col-8,.col-4,.col-6{grid-column:span 12}
+      .about-grid{grid-template-columns:1fr}
+      form.contact-form{grid-template-columns:1fr}
+      .hero{padding:24px}
+      img.responsive{height:160px}
+      .hero-heading{font-size:20px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="topnav" aria-label="sait menu">
+      <div class="logo">Perfice te OÜ</div>
+      <a href="#services">Teenused</a>
+      <a href="#advantages">Eelised</a>
+      <a href="#process">Protsess</a>
+      <a href="#about">Meist</a>
+      <a href="#pricing">Hinnakiri</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact" class="btn">Võta ühendust</a>
+    </nav>
+
+    <header class="hero" role="banner">
+      <div class="hero-left">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,#ffd2e8,#ff9ecb);display:flex;align-items:center;justify-content:center;color:#081027;font-weight:800;font-size:22px">P</div>
+          <div>
+            <div class="hero-heading">Perfice te OÜ</div>
+            <div class="hero-sub" style="margin-top:8px">Lahendused iluteenustele: broneeringud, integratsioonid, BI ja sisuhaldus</div>
+          </div>
+        </div>
+        <div class="hero-cta">
+          <a class="btn" href="#contact">Tellige konsultatsioon</a>
+        </div>
+      </div>
+
+      <div class="hero-right card" style="min-width:300px">
+        <h3 style="margin:0;color:#f8fbff">Süsteemid, mis aitavad müüa ja hallata</h3>
+        <p class="lead" style="color:#dbeeff">Me ühendame broneeringud, kliendihalduse ja andmeanalüütika, et su salon töötaks nutikamalt.</p>
+        <div style="display:flex;gap:10px;margin-top:12px">
+          <div style="flex:1">
+            <strong>Kiire juurutus</strong>
+            <div style="color:var(--muted);font-size:13px">Püsige tööprotsessiga sünkroonis alates esimesest päevast.</div>
+          </div>
+          <div style="flex:1">
+            <strong>Mõõdetav kasu</strong>
+            <div style="color:var(--muted);font-size:13px">Tõstame klientide broneeringuid ja optimeerime ressursse.</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Services (wide) -->
+      <section id="services" class="col-8 card" aria-labelledby="services-title">
+        <h2 id="services-title" class="section-title">Meie teenused</h2>
+        <p class="lead">Täislahendused ilusalongidele ja stuudiotele — tarkvara, integratsioonid ja andmete võimendus.</p>
+
+        <ul class="services" aria-hidden="false" style="margin-top:12px">
+          <li class="service">
+            <div class="ic">OB</div>
+            <div>
+              <strong>Online‑broneering</strong>
+              <div class="muted">Broneeringud, kalendrid, SMS/EMail meeldetuletused ja kohalikud integratsioonid.</div>
+            </div>
+          </li>
+
+          <li class="service">
+            <div class="ic">BI</div>
+            <div>
+              <strong>BI & analüütika</strong>
+              <div class="muted">Kohandatud dashboardid, KPI'd ja kasvuanalüüs.</div>
+            </div>
+          </li>
+
+          <li class="service">
+            <div class="ic">INT</div>
+            <div>
+              <strong>Integratsioonid</strong>
+              <div class="muted">API‑lahendused poodide, maksete ja CRM‑idega.</div>
+            </div>
+          </li>
+
+          <li class="service">
+            <div class="ic">CMS</div>
+            <div>
+              <strong>Sisuhaldus</strong>
+              <div class="muted">Kampaaniate juhtimine, landing‑lehed ja sisu kalendrid.</div>
+            </div>
+          </li>
+
+          <li class="service">
+            <div class="ic">PM</div>
+            <div>
+              <strong>Project management</strong>
+              <div class="muted">Arendus, juurutusplaan ja pidev toetus.</div>
+            </div>
+          </li>
+
+          <li class="service">
+            <div class="ic">UX</div>
+            <div>
+              <strong>UX/UI disain</strong>
+              <div class="muted">Brändikohane kasutajaliides ja mobiilne optimeerimine.</div>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Callout / CTA (narrow) -->
+      <aside class="col-4 card">
+        <h2 class="section-title">Kiire kontakt</h2>
+        <p class="lead">Soovid kiiret hinnangut või demo? Broneeri tasuta konsultatsioon.</p>
+        <a class="btn" href="#contact">Broneeri demo</a>
+
+        <div style="margin-top:16px">
+          <h3 style="margin:0 0 6px 0">Põhifunktsioonid</h3>
+          <ul style="color:var(--muted);padding-left:18px;margin:0">
+            <li>Reaalajas kalender</li>
+            <li>Automaatne teavitamine</li>
+            <li>Dashboard & raportid</li>
+            <li>Mitmekeelne kasutajaliides</li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Advantages (full width block) -->
+      <section id="advantages" class="col-12 card">
+        <h2 class="section-title">Meie eelised</h2>
+        <p class="lead">Mida saate koostööst meiega</p>
+        <div class="advantages" style="margin-top:12px">
+          <div class="adv"><strong>Valdkondlik kogemus</strong><div class="muted">Tunne iluteenuste eripäradest ja klienditeekondadest.</div></div>
+          <div class="adv"><strong>Kohandatav arhitektuur</strong><div class="muted">Modulaarne lähenemine — maksate ainult vajaliku eest.</div></div>
+          <div class="adv"><strong>Andmete turvalisus</strong><div class="muted">Krüptimine, rollipõhised õigused ja privaatsus.</div></div>
+          <div class="adv"><strong>Integreeritavus</strong><div class="muted">Paindlikud API‑ühendused ja valmis moodulid.</div></div>
+          <div class="adv"><strong>Tugi & koolitus</strong><div class="muted">Juurutus, töötajate koolitused ja teenustase.</div></div>
+          <div class="adv"><strong>Mõõdetav mõju</strong><div class="muted">KPI‑seadistus ja regulaarne optimeerimine.</div></div>
+        </div>
+      </section>
+
+      <!-- Process and Mission side-by-side -->
+      <section id="process" class="col-6 card">
+        <h2 class="section-title">Kuidas me töötame</h2>
+        <div class="process" style="margin-top:12px">
+          <div class="step"><div class="num">1</div><div><strong>Brief & audit</strong><div class="muted">Olulised ärinõuded ja tehniline ülevaade.</div></div></div>
+          <div class="step"><div class="num">2</div><div><strong>Prototüüp</strong><div class="muted">Kiirprototüüp ja kasutajatestid.</div></div></div>
+          <div class="step"><div class="num">3</div><div><strong>Arendus</strong><div class="muted">Modulaarne arendus koos integratsioonidega.</div></div></div>
+          <div class="step"><div class="num">4</div><div><strong>Juurutus</strong><div class="muted">Migratsioon, koolitus ja käivitus.</div></div></div>
+          <div class="step"><div class="num">5</div><div><strong>Kasv & tugi</strong><div class="muted">BI, optimeerimine ja jätkuarendus.</div></div></div>
+        </div>
+      </section>
+
+      <section id="about" class="col-6 card">
+        <h2 class="section-title">Meist ja meie missioon</h2>
+        <p class="lead">Perfice te OÜ kombineerib ilubiznese teadmised ja tarkvaraarenduse oskused, et pakkuda lahendusi, mis vähendavad halduskoormust ja tõstavad kliendirahulolu.</p>
+        <div style="margin-top:12px">
+          <strong>Missioon</strong>
+          <p class="muted">Võimaldada iluteenuste ettevõtetel teenindada rohkem kliente kiiremini ja isikupärasemalt tänu nutikatele lahendustele.</p>
+
+          <strong>Väärtused</strong>
+          <ul style="color:var(--muted)">
+            <li>Kasutajasõbralikkus</li>
+            <li>Paindlikkus</li>
+            <li>Andmepõhine otsustamine</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Pricing and FAQ side-by-side -->
+      <section id="pricing" class="col-6 card">
+        <h2 class="section-title">Hinnakiri (lihtsustatud)</h2>
+        <p class="lead">Paketid lähtuvad funktsionaalsusest ja kasutajate hulgast.</p>
+        <div style="display:grid;gap:10px;margin-top:10px">
+          <div class="adv"><strong>Starter</strong> — online‑broneering, kalender, baasaruanded — alates 199€/kuus</div>
+          <div class="adv"><strong>Growth</strong> — Starter + integratsioonid ja automaatika — alates 449€/kuus</div>
+          <div class="adv"><strong>Enterprise</strong> — Täislahendus + BI, custom integratsioonid — hinnapäring</div>
+        </div>
+      </section>
+
+      <section id="faq" class="col-6 card">
+        <h2 class="section-title">Korduma kippuvad küsimused</h2>
+        <div class="faq" style="margin-top:12px">
+          <div class="faq-item">
+            <strong>Kuidas toimub migratsioon?</strong>
+            <p class="muted">Andmekaardistuse, proovmigratsiooni ja testimise kaudu, et teenus töötaks katkestusteta.</p>
+          </div>
+          <div class="faq-item">
+            <strong>Kas pakute mobiilirakendusi?</strong>
+            <p class="muted">Jah — erilahendused nii veebile kui natiivsetele platvormidele.</p>
+          </div>
+          <div class="faq-item">
+            <strong>Milline on tugi pärast käivitust?</strong>
+            <p class="muted">Pakume mitmetasandilist tuge, sh 24/7 järelevalve ja regulaarne hooldus.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact (full width) with laptop image instead of interactive map -->
+      <section id="contact" class="col-12 card" aria-labelledby="contact-title">
+        <h2 id="contact-title" class="section-title">Kontaktid</h2>
+        <div style="display:grid;grid-template-columns:1fr 480px;gap:20px;align-items:start">
+          <div>
+            <p class="lead">Kirjuta meile või tule külla — vastame kiiresti ja koostame personaalse pakkumise.</p>
+
+            <div style="margin-top:8px">
+              <strong>Aadress</strong>
+              <div class="muted">Peterburi tee 26-14 Tallinn, Harjumaa, 11411 Estonia</div>
+            </div>
+            <div style="margin-top:8px">
+              <strong>E‑post</strong>
+              <div class="muted">mail@perficete.com</div>
+            </div>
+            <div style="margin-top:12px">
+              <strong>Tellimis‑CTA</strong>
+              <p class="muted">Soovite kiiret hinnangut? Saada päring ja me võtame ühendust 1–2 tööpäeva jooksul.</p>
+              <a class="btn" href="#contact">Saada päring</a>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-rows:auto 1fr;gap:12px">
+            <!-- Decorative laptop image -->
+            <div class="card" style="padding:0;overflow:hidden;">
+              <img class="responsive" src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1400&auto=format&fit=crop&crop=entropy" alt="Laptop workspace">
+            </div>
+
+            <!-- Contact form sits under image, matching width -->
+            <div class="card" style="padding:14px;">
+              <h3 style="margin:0 0 8px 0">Saada sõnum</h3>
+              <form id="contactForm" class="contact-form" novalidate>
+                <input id="name" name="name" type="text" placeholder="Täisnimi *" required />
+                <input id="email" name="email" type="email" placeholder="E‑post *" required />
+                <input id="phone" name="phone" type="tel" placeholder="Telefon" />
+                <textarea id="message" name="message" placeholder="Sõnum *" required></textarea>
+
+                <div class="form-foot" style="grid-column:1/-1">
+                  <div id="formFeedback" role="status"></div>
+                  <div style="display:flex;gap:10px">
+                    <button type="submit" class="btn">Saada sõnum</button>
+                    <a class="btn" href="mailto:mail@perficete.com" style="background:transparent;border:1px solid rgba(255,255,255,0.06);color:inherit">Kirjuta e‑postiga</a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <div>
+        <strong>Perfice te OÜ</strong> — Beauty · Apps · Systems
+        <div style="color:var(--muted);font-size:13px;margin-top:6px">Peterburi tee 26-14, Tallinn • mail@perficete.com</div>
+      </div>
+      <div style="color:var(--muted);font-size:13px">© 2026 Perfice te OÜ</div>
+    </footer>
+  </div>
+
+  <script>
+    // Client-side validation and simulated submit
+    (function(){
+      const form = document.getElementById('contactForm');
+      const feedback = document.getElementById('formFeedback');
+
+      function setMessage(text, cls){
+        feedback.textContent = text;
+        feedback.className = cls;
+      }
+
+      function validEmail(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e) }
+
+      form.addEventListener('submit', function(ev){
+        ev.preventDefault();
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const message = form.message.value.trim();
+
+        if(!name){ setMessage('Palun sisesta oma täisnimi.', 'error'); form.name.focus(); return }
+        if(!email || !validEmail(email)){ setMessage('Palun sisesta kehtiv e‑posti aadress.', 'error'); form.email.focus(); return }
+        if(!message || message.length < 10){ setMessage('Sõnum on liiga lühike (min 10 tähemärki).', 'error'); form.message.focus(); return }
+
+        setMessage('Sõnumi saatmine...', 'success');
+        setTimeout(() => {
+          setMessage('Aitäh! Teie sõnum on vastu võetud. Vastame paari tööpäeva jooksul.', 'success');
+          form.reset();
+        }, 800);
+      });
+
+      // small styles for messages
+      const style = document.createElement('style');
+      style.textContent = '.error{color:#ffccd5}.success{color:#b6ffd9}';
+      document.head.appendChild(style);
+    })();
+  </script>
+</body>
+</html>
